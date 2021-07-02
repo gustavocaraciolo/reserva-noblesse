@@ -1,0 +1,11 @@
+entity Tenis {
+  date LocalDate required
+  notes String maxlength(140)
+}
+
+relationship ManyToOne {
+  Tenis{user(login)} to User
+}
+
+
+paginate Tenis with pagination
