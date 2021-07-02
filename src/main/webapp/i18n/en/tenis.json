@@ -1,0 +1,26 @@
+{
+  "reservaNoblesseApp": {
+    "tenis": {
+      "home": {
+        "title": "Tenis",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Tenis",
+        "createOrEditLabel": "Create or edit a Tenis",
+        "notFound": "No Tenis found"
+      },
+      "created": "A new Tenis is created with identifier {{ param }}",
+      "updated": "A Tenis is updated with identifier {{ param }}",
+      "deleted": "A Tenis is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Tenis {{ id }}?"
+      },
+      "detail": {
+        "title": "Tenis"
+      },
+      "id": "ID",
+      "date": "Date",
+      "notes": "Notes",
+      "user": "User"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "reservaNoblesseApp": {
+    "tenis": {
+      "home": {
+        "title": "Tenis",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Tenis",
+        "createOrEditLabel": "Criar ou editar Tenis",
+        "notFound": "Nenhum Tenis encontrado"
+      },
+      "created": "Um novo Tenis foi criado com o identificador {{ param }}",
+      "updated": "Um Tenis foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Tenis foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Tenis {{ id }}?"
+      },
+      "detail": {
+        "title": "Tenis"
+      },
+      "id": "ID",
+      "date": "Date",
+      "notes": "Notes",
+      "user": "User"
+    }
+  }
+}
