@@ -1,0 +1,30 @@
+{
+  "name": "Espaco",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "140"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "reserva",
+      "otherEntityRelationshipName": "espaco",
+      "relationshipName": "reserva",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "espaco",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210705141549"
+}

@@ -1,0 +1,25 @@
+{
+  "reservaNoblesseApp": {
+    "espaco": {
+      "home": {
+        "title": "Espacos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Espaco",
+        "createOrEditLabel": "Criar ou editar Espaco",
+        "notFound": "Nenhum Espaco encontrado"
+      },
+      "created": "Um novo Espaco foi criado com o identificador {{ param }}",
+      "updated": "Um Espaco foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Espaco foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Espaco {{ id }}?"
+      },
+      "detail": {
+        "title": "Espaco"
+      },
+      "id": "ID",
+      "nome": "Nome",
+      "reserva": "Reserva"
+    }
+  }
+}

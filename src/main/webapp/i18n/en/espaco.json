@@ -1,0 +1,25 @@
+{
+  "reservaNoblesseApp": {
+    "espaco": {
+      "home": {
+        "title": "Espacos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Espaco",
+        "createOrEditLabel": "Create or edit a Espaco",
+        "notFound": "No Espacos found"
+      },
+      "created": "A new Espaco is created with identifier {{ param }}",
+      "updated": "A Espaco is updated with identifier {{ param }}",
+      "deleted": "A Espaco is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Espaco {{ id }}?"
+      },
+      "detail": {
+        "title": "Espaco"
+      },
+      "id": "ID",
+      "nome": "Nome",
+      "reserva": "Reserva"
+    }
+  }
+}
