@@ -52,6 +52,9 @@ public class CacheConfiguration {
             createCache(cm, com.reserva.noblesse.domain.Espaco.class.getName() + ".reservas");
             createCache(cm, com.reserva.noblesse.domain.Reserva.class.getName());
             createCache(cm, com.reserva.noblesse.domain.Reserva.class.getName() + ".espacos");
+            createCache(cm, com.reserva.noblesse.domain.Torre.class.getName());
+            createCache(cm, com.reserva.noblesse.domain.Apartamento.class.getName());
+            createCache(cm, com.reserva.noblesse.domain.Apartamento.class.getName() + ".torres");
             // jhipster-needle-ehcache-add-entry
         };
     }
