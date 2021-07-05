@@ -1,0 +1,18 @@
+entity Espaco {
+  nome String maxlength(140)
+}
+
+entity Reserva {
+  date LocalDate required
+  notes String maxlength(140)
+}
+
+relationship ManyToOne {
+  Reserva{user(login)} to User
+}
+
+relationship ManyToMany {
+  Reserva{espaco} to Espaco{reserva}
+}
+
+paginate Espaco, Reserva with pagination
