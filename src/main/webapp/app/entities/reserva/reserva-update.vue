@@ -94,7 +94,7 @@
               v-model="reserva.espacos"
             >
               <option v-bind:value="getSelected(reserva.espacos, espacoOption)" v-for="espacoOption in espacos" :key="espacoOption.id">
-                {{ espacoOption.nome }}
+                {{ espacoOption.id }}
               </option>
             </select>
           </div>

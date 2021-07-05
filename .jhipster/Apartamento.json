@@ -1,0 +1,34 @@
+{
+  "name": "Apartamento",
+  "fields": [
+    {
+      "fieldName": "numero",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "apartamento",
+      "relationshipName": "user",
+      "otherEntityField": "login"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "torre",
+      "otherEntityRelationshipName": "apartamento",
+      "relationshipName": "torre"
+    }
+  ],
+  "entityTableName": "apartamento",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210705204533"
+}
