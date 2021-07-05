@@ -43,7 +43,10 @@
     "devServerPort": 9060,
     "clientTheme": "none",
     "clientThemeVariant": "",
-    "reactive": false
+    "reactive": false,
+    "herokuAppName": "reserva-noblesse",
+    "herokuDeployType": "git",
+    "herokuJavaVersion": "11"
   },
   "git-provider": "GitHub",
   "git-company": "gustavocaraciolo",
