@@ -1,3 +1,11 @@
+entity Torre {
+  numero Integer
+}
+
+entity Apartamento {
+  numero Integer
+}
+
 entity Espaco {
   nome String maxlength(140)
 }
@@ -9,6 +17,8 @@ entity Reserva {
 
 relationship ManyToOne {
   Reserva{user(login)} to User
+  Apartamento{user(login)} to User
+  Torre{apartamento} to Apartamento{torre}
 }
 
 relationship ManyToMany {
