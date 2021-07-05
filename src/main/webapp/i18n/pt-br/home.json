@@ -1,11 +1,11 @@
 {
   "home": {
-    "title": "Bem vindo, Java Hipster!",
+    "title": "Bem vindo, moradores do Noblesse!",
     "subtitle": "Esta é a página principal",
     "logged": {
       "message": "Você está logado como \"{{username}}\"."
     },
-    "question": "Em caso de dúvida sobre o JHipster:",
+    "question": "O reserva-noblesse é um sistema automatizado que reúne diversas funcionalidades e módulos facilitando o gerenciamento de centros esportivos e salão de festa, oferecendo tudo de forma prática, rápida e simples. Com nosso sistema sua comodidade e segurança são sempre garantidas.",
     "link": {
       "homepage": "Página principal JHipster",
       "stackoverflow": "JHipster no Stack Overflow",
@@ -13,7 +13,7 @@
       "chat": "Sala de bate-papo pública JHipster",
       "follow": "siga @jhipster no Twitter"
     },
-    "like": "Se você gosta do JHipster, não se esqueça de avaliar no",
+    "like": "Fique tranquilo enquanto nosso sistema trabalha por você!",
     "github": "GitHub"
   }
 }
