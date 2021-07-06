@@ -7,31 +7,22 @@
         </h2>
         <dl class="row jh-entity-details">
           <dt>
-            <span v-text="$t('reservaNoblesseApp.reserva.date')">Date</span>
+            <span v-text="$t('reservaNoblesseApp.reserva.dataHora')">Data Hora</span>
           </dt>
           <dd>
-            <span>{{ reserva.date }}</span>
+            <span v-if="reserva.dataHora">{{ $d(Date.parse(reserva.dataHora), 'long') }}</span>
           </dd>
           <dt>
-            <span v-text="$t('reservaNoblesseApp.reserva.notes')">Notes</span>
+            <span v-text="$t('reservaNoblesseApp.reserva.notas')">Notas</span>
           </dt>
           <dd>
-            <span>{{ reserva.notes }}</span>
+            <span>{{ reserva.notas }}</span>
           </dd>
           <dt>
             <span v-text="$t('reservaNoblesseApp.reserva.user')">User</span>
           </dt>
           <dd>
             {{ reserva.user ? reserva.user.login : '' }}
-          </dd>
-          <dt>
-            <span v-text="$t('reservaNoblesseApp.reserva.espaco')">Espaco</span>
-          </dt>
-          <dd>
-            <span v-for="(espaco, i) in reserva.espacos" :key="espaco.id"
-              >{{ i > 0 ? ', ' : '' }}
-              <router-link :to="{ name: 'EspacoView', params: { espacoId: espaco.id } }">{{ espaco.id }}</router-link>
-            </span>
           </dd>
         </dl>
         <button type="submit" v-on:click.prevent="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

@@ -2,8 +2,6 @@ package com.reserva.noblesse.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -28,10 +26,9 @@ public class Espaco implements Serializable {
     @Column(name = "nome", length = 140)
     private String nome;
 
-    @ManyToMany(mappedBy = "espacos")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "user", "espacos" }, allowSetters = true)
-    private Set<Reserva> reservas = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "espacos", "user" }, allowSetters = true)
+    private Reserva reserva;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -60,35 +57,17 @@ public class Espaco implements Serializable {
         this.nome = nome;
     }
 
-    public Set<Reserva> getReservas() {
-        return this.reservas;
+    public Reserva getReserva() {
+        return this.reserva;
     }
 
-    public Espaco reservas(Set<Reserva> reservas) {
-        this.setReservas(reservas);
+    public Espaco reserva(Reserva reserva) {
+        this.setReserva(reserva);
         return this;
     }
 
-    public Espaco addReserva(Reserva reserva) {
-        this.reservas.add(reserva);
-        reserva.getEspacos().add(this);
-        return this;
-    }
-
-    public Espaco removeReserva(Reserva reserva) {
-        this.reservas.remove(reserva);
-        reserva.getEspacos().remove(this);
-        return this;
-    }
-
-    public void setReservas(Set<Reserva> reservas) {
-        if (this.reservas != null) {
-            this.reservas.forEach(i -> i.removeEspaco(this));
-        }
-        if (reservas != null) {
-            reservas.forEach(i -> i.addEspaco(this));
-        }
-        this.reservas = reservas;
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -1,30 +1,26 @@
 package com.reserva.noblesse.web.rest;
 
+import static com.reserva.noblesse.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.reserva.noblesse.IntegrationTest;
 import com.reserva.noblesse.domain.Reserva;
 import com.reserva.noblesse.repository.ReservaRepository;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.time.ZoneId;
-import java.util.ArrayList;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -34,16 +30,15 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link ReservaResource} REST controller.
  */
 @IntegrationTest
-@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class ReservaResourceIT {
 
-    private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final ZonedDateTime DEFAULT_DATA_HORA = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_DATA_HORA = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
-    private static final String DEFAULT_NOTES = "AAAAAAAAAA";
-    private static final String UPDATED_NOTES = "BBBBBBBBBB";
+    private static final String DEFAULT_NOTAS = "AAAAAAAAAA";
+    private static final String UPDATED_NOTAS = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/reservas";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -53,9 +48,6 @@ class ReservaResourceIT {
 
     @Autowired
     private ReservaRepository reservaRepository;
-
-    @Mock
-    private ReservaRepository reservaRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -72,7 +64,7 @@ class ReservaResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Reserva createEntity(EntityManager em) {
-        Reserva reserva = new Reserva().date(DEFAULT_DATE).notes(DEFAULT_NOTES);
+        Reserva reserva = new Reserva().dataHora(DEFAULT_DATA_HORA).notas(DEFAULT_NOTAS);
         return reserva;
     }
 
@@ -83,7 +75,7 @@ class ReservaResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Reserva createUpdatedEntity(EntityManager em) {
-        Reserva reserva = new Reserva().date(UPDATED_DATE).notes(UPDATED_NOTES);
+        Reserva reserva = new Reserva().dataHora(UPDATED_DATA_HORA).notas(UPDATED_NOTAS);
         return reserva;
     }
 
@@ -105,8 +97,8 @@ class ReservaResourceIT {
         List<Reserva> reservaList = reservaRepository.findAll();
         assertThat(reservaList).hasSize(databaseSizeBeforeCreate + 1);
         Reserva testReserva = reservaList.get(reservaList.size() - 1);
-        assertThat(testReserva.getDate()).isEqualTo(DEFAULT_DATE);
-        assertThat(testReserva.getNotes()).isEqualTo(DEFAULT_NOTES);
+        assertThat(testReserva.getDataHora()).isEqualTo(DEFAULT_DATA_HORA);
+        assertThat(testReserva.getNotas()).isEqualTo(DEFAULT_NOTAS);
     }
 
     @Test
@@ -129,10 +121,10 @@ class ReservaResourceIT {
 
     @Test
     @Transactional
-    void checkDateIsRequired() throws Exception {
+    void checkDataHoraIsRequired() throws Exception {
         int databaseSizeBeforeTest = reservaRepository.findAll().size();
         // set the field null
-        reserva.setDate(null);
+        reserva.setDataHora(null);
 
         // Create the Reserva, which fails.
 
@@ -156,26 +148,8 @@ class ReservaResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(reserva.getId().intValue())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
-            .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllReservasWithEagerRelationshipsIsEnabled() throws Exception {
-        when(reservaRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restReservaMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(reservaRepositoryMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllReservasWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(reservaRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restReservaMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(reservaRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+            .andExpect(jsonPath("$.[*].dataHora").value(hasItem(sameInstant(DEFAULT_DATA_HORA))))
+            .andExpect(jsonPath("$.[*].notas").value(hasItem(DEFAULT_NOTAS)));
     }
 
     @Test
@@ -190,8 +164,8 @@ class ReservaResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(reserva.getId().intValue()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
-            .andExpect(jsonPath("$.notes").value(DEFAULT_NOTES));
+            .andExpect(jsonPath("$.dataHora").value(sameInstant(DEFAULT_DATA_HORA)))
+            .andExpect(jsonPath("$.notas").value(DEFAULT_NOTAS));
     }
 
     @Test
@@ -213,7 +187,7 @@ class ReservaResourceIT {
         Reserva updatedReserva = reservaRepository.findById(reserva.getId()).get();
         // Disconnect from session so that the updates on updatedReserva are not directly saved in db
         em.detach(updatedReserva);
-        updatedReserva.date(UPDATED_DATE).notes(UPDATED_NOTES);
+        updatedReserva.dataHora(UPDATED_DATA_HORA).notas(UPDATED_NOTAS);
 
         restReservaMockMvc
             .perform(
@@ -227,8 +201,8 @@ class ReservaResourceIT {
         List<Reserva> reservaList = reservaRepository.findAll();
         assertThat(reservaList).hasSize(databaseSizeBeforeUpdate);
         Reserva testReserva = reservaList.get(reservaList.size() - 1);
-        assertThat(testReserva.getDate()).isEqualTo(UPDATED_DATE);
-        assertThat(testReserva.getNotes()).isEqualTo(UPDATED_NOTES);
+        assertThat(testReserva.getDataHora()).isEqualTo(UPDATED_DATA_HORA);
+        assertThat(testReserva.getNotas()).isEqualTo(UPDATED_NOTAS);
     }
 
     @Test
@@ -299,7 +273,7 @@ class ReservaResourceIT {
         Reserva partialUpdatedReserva = new Reserva();
         partialUpdatedReserva.setId(reserva.getId());
 
-        partialUpdatedReserva.date(UPDATED_DATE).notes(UPDATED_NOTES);
+        partialUpdatedReserva.dataHora(UPDATED_DATA_HORA).notas(UPDATED_NOTAS);
 
         restReservaMockMvc
             .perform(
@@ -313,8 +287,8 @@ class ReservaResourceIT {
         List<Reserva> reservaList = reservaRepository.findAll();
         assertThat(reservaList).hasSize(databaseSizeBeforeUpdate);
         Reserva testReserva = reservaList.get(reservaList.size() - 1);
-        assertThat(testReserva.getDate()).isEqualTo(UPDATED_DATE);
-        assertThat(testReserva.getNotes()).isEqualTo(UPDATED_NOTES);
+        assertThat(testReserva.getDataHora()).isEqualTo(UPDATED_DATA_HORA);
+        assertThat(testReserva.getNotas()).isEqualTo(UPDATED_NOTAS);
     }
 
     @Test
@@ -329,7 +303,7 @@ class ReservaResourceIT {
         Reserva partialUpdatedReserva = new Reserva();
         partialUpdatedReserva.setId(reserva.getId());
 
-        partialUpdatedReserva.date(UPDATED_DATE).notes(UPDATED_NOTES);
+        partialUpdatedReserva.dataHora(UPDATED_DATA_HORA).notas(UPDATED_NOTAS);
 
         restReservaMockMvc
             .perform(
@@ -343,8 +317,8 @@ class ReservaResourceIT {
         List<Reserva> reservaList = reservaRepository.findAll();
         assertThat(reservaList).hasSize(databaseSizeBeforeUpdate);
         Reserva testReserva = reservaList.get(reservaList.size() - 1);
-        assertThat(testReserva.getDate()).isEqualTo(UPDATED_DATE);
-        assertThat(testReserva.getNotes()).isEqualTo(UPDATED_NOTES);
+        assertThat(testReserva.getDataHora()).isEqualTo(UPDATED_DATA_HORA);
+        assertThat(testReserva.getNotas()).isEqualTo(UPDATED_NOTAS);
     }
 
     @Test

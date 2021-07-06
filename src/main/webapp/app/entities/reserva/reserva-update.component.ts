@@ -1,21 +1,23 @@
 import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { required, maxLength } from 'vuelidate/lib/validators';
-
-import UserService from '@/admin/user-management/user-management.service';
+import dayjs from 'dayjs';
+import { DATE_TIME_LONG_FORMAT } from '@/shared/date/filters';
 
 import EspacoService from '@/entities/espaco/espaco.service';
 import { IEspaco } from '@/shared/model/espaco.model';
+
+import UserService from '@/admin/user-management/user-management.service';
 
 import { IReserva, Reserva } from '@/shared/model/reserva.model';
 import ReservaService from './reserva.service';
 
 const validations: any = {
   reserva: {
-    date: {
+    dataHora: {
       required,
     },
-    notes: {
+    notas: {
       maxLength: maxLength(140),
     },
   },
@@ -28,13 +30,13 @@ export default class ReservaUpdate extends Vue {
   @Inject('reservaService') private reservaService: () => ReservaService;
   public reserva: IReserva = new Reserva();
 
-  @Inject('userService') private userService: () => UserService;
-
-  public users: Array<any> = [];
-
   @Inject('espacoService') private espacoService: () => EspacoService;
 
   public espacos: IEspaco[] = [];
+
+  @Inject('userService') private userService: () => UserService;
+
+  public users: Array<any> = [];
   public isSaving = false;
   public currentLanguage = '';
 
@@ -55,7 +57,6 @@ export default class ReservaUpdate extends Vue {
         this.currentLanguage = this.$store.getters.currentLanguage;
       }
     );
-    this.reserva.espacos = [];
   }
 
   public save(): void {
@@ -93,10 +94,34 @@ export default class ReservaUpdate extends Vue {
     }
   }
 
+  public convertDateTimeFromServer(date: Date): string {
+    if (date && dayjs(date).isValid()) {
+      return dayjs(date).format(DATE_TIME_LONG_FORMAT);
+    }
+    return null;
+  }
+
+  public updateInstantField(field, event) {
+    if (event.target.value) {
+      this.reserva[field] = dayjs(event.target.value, DATE_TIME_LONG_FORMAT);
+    } else {
+      this.reserva[field] = null;
+    }
+  }
+
+  public updateZonedDateTimeField(field, event) {
+    if (event.target.value) {
+      this.reserva[field] = dayjs(event.target.value, DATE_TIME_LONG_FORMAT);
+    } else {
+      this.reserva[field] = null;
+    }
+  }
+
   public retrieveReserva(reservaId): void {
     this.reservaService()
       .find(reservaId)
       .then(res => {
+        res.dataHora = new Date(res.dataHora);
         this.reserva = res;
       });
   }
@@ -106,26 +131,15 @@ export default class ReservaUpdate extends Vue {
   }
 
   public initRelationships(): void {
-    this.userService()
-      .retrieve()
-      .then(res => {
-        this.users = res.data;
-      });
     this.espacoService()
       .retrieve()
       .then(res => {
         this.espacos = res.data;
       });
-  }
-
-  public getSelected(selectedVals, option): any {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
-        }
-      }
-    }
-    return option;
+    this.userService()
+      .retrieve()
+      .then(res => {
+        this.users = res.data;
+      });
   }
 }

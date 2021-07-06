@@ -132,11 +132,11 @@ public class ReservaResource {
             .findById(reserva.getId())
             .map(
                 existingReserva -> {
-                    if (reserva.getDate() != null) {
-                        existingReserva.setDate(reserva.getDate());
+                    if (reserva.getDataHora() != null) {
+                        existingReserva.setDataHora(reserva.getDataHora());
                     }
-                    if (reserva.getNotes() != null) {
-                        existingReserva.setNotes(reserva.getNotes());
+                    if (reserva.getNotas() != null) {
+                        existingReserva.setNotas(reserva.getNotas());
                     }
 
                     return existingReserva;
@@ -154,21 +154,12 @@ public class ReservaResource {
      * {@code GET  /reservas} : get all the reservas.
      *
      * @param pageable the pagination information.
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of reservas in body.
      */
     @GetMapping("/reservas")
-    public ResponseEntity<List<Reserva>> getAllReservas(
-        Pageable pageable,
-        @RequestParam(required = false, defaultValue = "false") boolean eagerload
-    ) {
+    public ResponseEntity<List<Reserva>> getAllReservas(Pageable pageable) {
         log.debug("REST request to get a page of Reservas");
-        Page<Reserva> page;
-        if (eagerload) {
-            page = reservaRepository.findAllWithEagerRelationships(pageable);
-        } else {
-            page = reservaRepository.findAll(pageable);
-        }
+        Page<Reserva> page = reservaRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -182,7 +173,7 @@ public class ReservaResource {
     @GetMapping("/reservas/{id}")
     public ResponseEntity<Reserva> getReserva(@PathVariable Long id) {
         log.debug("REST request to get Reserva : {}", id);
-        Optional<Reserva> reserva = reservaRepository.findOneWithEagerRelationships(id);
+        Optional<Reserva> reserva = reservaRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(reserva);
     }
 

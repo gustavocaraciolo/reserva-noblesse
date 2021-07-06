@@ -32,13 +32,13 @@
               <span v-text="$t('global.field.id')">ID</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator>
             </th>
-            <th scope="row" v-on:click="changeOrder('date')">
-              <span v-text="$t('reservaNoblesseApp.reserva.date')">Date</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'date'"></jhi-sort-indicator>
+            <th scope="row" v-on:click="changeOrder('dataHora')">
+              <span v-text="$t('reservaNoblesseApp.reserva.dataHora')">Data Hora</span>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'dataHora'"></jhi-sort-indicator>
             </th>
-            <th scope="row" v-on:click="changeOrder('notes')">
-              <span v-text="$t('reservaNoblesseApp.reserva.notes')">Notes</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'notes'"></jhi-sort-indicator>
+            <th scope="row" v-on:click="changeOrder('notas')">
+              <span v-text="$t('reservaNoblesseApp.reserva.notas')">Notas</span>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'notas'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('user.login')">
               <span v-text="$t('reservaNoblesseApp.reserva.user')">User</span>
@@ -52,8 +52,8 @@
             <td>
               <router-link :to="{ name: 'ReservaView', params: { reservaId: reserva.id } }">{{ reserva.id }}</router-link>
             </td>
-            <td>{{ reserva.date }}</td>
-            <td>{{ reserva.notes }}</td>
+            <td>{{ reserva.dataHora ? $d(Date.parse(reserva.dataHora), 'short') : '' }}</td>
+            <td>{{ reserva.notas }}</td>
             <td>
               {{ reserva.user ? reserva.user.login : '' }}
             </td>

@@ -10,11 +10,10 @@
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-many",
+      "relationshipType": "many-to-one",
       "otherEntityName": "reserva",
       "otherEntityRelationshipName": "espaco",
-      "relationshipName": "reserva",
-      "ownerSide": false
+      "relationshipName": "reserva"
     }
   ],
   "entityTableName": "espaco",

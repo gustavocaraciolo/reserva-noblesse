@@ -9,6 +9,8 @@
         "main": "Entities",
         "espaco": "Espaco",
         "reserva": "Reserva",
+        "torre": "Torre",
+        "apartamento": "Apartamento",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

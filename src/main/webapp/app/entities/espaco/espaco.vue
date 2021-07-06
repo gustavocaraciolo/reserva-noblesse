@@ -36,6 +36,10 @@
               <span v-text="$t('reservaNoblesseApp.espaco.nome')">Nome</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'nome'"></jhi-sort-indicator>
             </th>
+            <th scope="row" v-on:click="changeOrder('reserva.id')">
+              <span v-text="$t('reservaNoblesseApp.espaco.reserva')">Reserva</span>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'reserva.id'"></jhi-sort-indicator>
+            </th>
             <th scope="row"></th>
           </tr>
         </thead>
@@ -45,6 +49,11 @@
               <router-link :to="{ name: 'EspacoView', params: { espacoId: espaco.id } }">{{ espaco.id }}</router-link>
             </td>
             <td>{{ espaco.nome }}</td>
+            <td>
+              <div v-if="espaco.reserva">
+                <router-link :to="{ name: 'ReservaView', params: { reservaId: espaco.reserva.id } }">{{ espaco.reserva.id }}</router-link>
+              </div>
+            </td>
             <td class="text-right">
               <div class="btn-group">
                 <router-link :to="{ name: 'EspacoView', params: { espacoId: espaco.id } }" custom v-slot="{ navigate }">

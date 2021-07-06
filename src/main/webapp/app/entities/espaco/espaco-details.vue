@@ -12,6 +12,14 @@
           <dd>
             <span>{{ espaco.nome }}</span>
           </dd>
+          <dt>
+            <span v-text="$t('reservaNoblesseApp.espaco.reserva')">Reserva</span>
+          </dt>
+          <dd>
+            <div v-if="espaco.reserva">
+              <router-link :to="{ name: 'ReservaView', params: { reservaId: espaco.reserva.id } }">{{ espaco.reserva.id }}</router-link>
+            </div>
+          </dd>
         </dl>
         <button type="submit" v-on:click.prevent="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
           <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.back')"> Back</span>

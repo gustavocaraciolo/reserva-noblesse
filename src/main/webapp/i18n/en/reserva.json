@@ -18,10 +18,10 @@
         "title": "Reserva"
       },
       "id": "ID",
-      "date": "Date",
-      "notes": "Notes",
-      "user": "User",
-      "espaco": "Espaco"
+      "dataHora": "Data Hora",
+      "notas": "Notas",
+      "espaco": "Espaco",
+      "user": "User"
     }
   }
 }

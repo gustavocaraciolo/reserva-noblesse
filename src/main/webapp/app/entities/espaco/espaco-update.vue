@@ -35,6 +35,19 @@
               </small>
             </div>
           </div>
+          <div class="form-group">
+            <label class="form-control-label" v-text="$t('reservaNoblesseApp.espaco.reserva')" for="espaco-reserva">Reserva</label>
+            <select class="form-control" id="espaco-reserva" data-cy="reserva" name="reserva" v-model="espaco.reserva">
+              <option v-bind:value="null"></option>
+              <option
+                v-bind:value="espaco.reserva && reservaOption.id === espaco.reserva.id ? espaco.reserva : reservaOption"
+                v-for="reservaOption in reservas"
+                :key="reservaOption.id"
+              >
+                {{ reservaOption.id }}
+              </option>
+            </select>
+          </div>
         </div>
         <div>
           <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" v-on:click="previousState()">

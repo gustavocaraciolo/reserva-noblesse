@@ -1,0 +1,26 @@
+{
+  "reservaNoblesseApp": {
+    "apartamento": {
+      "home": {
+        "title": "Apartamentos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Apartamento",
+        "createOrEditLabel": "Criar ou editar Apartamento",
+        "notFound": "Nenhum Apartamento encontrado"
+      },
+      "created": "Um novo Apartamento foi criado com o identificador {{ param }}",
+      "updated": "Um Apartamento foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Apartamento foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Apartamento {{ id }}?"
+      },
+      "detail": {
+        "title": "Apartamento"
+      },
+      "id": "ID",
+      "numero": "Numero",
+      "user": "User",
+      "torre": "Torre"
+    }
+  }
+}

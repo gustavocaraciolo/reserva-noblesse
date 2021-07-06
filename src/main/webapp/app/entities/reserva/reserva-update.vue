@@ -15,54 +15,48 @@
             <input type="text" class="form-control" id="id" name="id" v-model="reserva.id" readonly />
           </div>
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('reservaNoblesseApp.reserva.date')" for="reserva-date">Date</label>
-            <b-input-group class="mb-3">
-              <b-input-group-prepend>
-                <b-form-datepicker
-                  aria-controls="reserva-date"
-                  v-model="$v.reserva.date.$model"
-                  name="date"
-                  class="form-control"
-                  :locale="currentLanguage"
-                  button-only
-                  today-button
-                  reset-button
-                  close-button
-                >
-                </b-form-datepicker>
-              </b-input-group-prepend>
-              <b-form-input
-                id="reserva-date"
-                data-cy="date"
-                type="text"
+            <label class="form-control-label" v-text="$t('reservaNoblesseApp.reserva.dataHora')" for="reserva-dataHora">Data Hora</label>
+            <div class="d-flex">
+              <input
+                id="reserva-dataHora"
+                data-cy="dataHora"
+                type="datetime-local"
                 class="form-control"
-                name="date"
-                :class="{ valid: !$v.reserva.date.$invalid, invalid: $v.reserva.date.$invalid }"
-                v-model="$v.reserva.date.$model"
+                name="dataHora"
+                :class="{ valid: !$v.reserva.dataHora.$invalid, invalid: $v.reserva.dataHora.$invalid }"
                 required
+                :value="convertDateTimeFromServer($v.reserva.dataHora.$model)"
+                @change="updateZonedDateTimeField('dataHora', $event)"
               />
-            </b-input-group>
-            <div v-if="$v.reserva.date.$anyDirty && $v.reserva.date.$invalid">
-              <small class="form-text text-danger" v-if="!$v.reserva.date.required" v-text="$t('entity.validation.required')">
+            </div>
+            <div v-if="$v.reserva.dataHora.$anyDirty && $v.reserva.dataHora.$invalid">
+              <small class="form-text text-danger" v-if="!$v.reserva.dataHora.required" v-text="$t('entity.validation.required')">
                 This field is required.
+              </small>
+              <small
+                class="form-text text-danger"
+                v-if="!$v.reserva.dataHora.ZonedDateTimelocal"
+                v-text="$t('entity.validation.ZonedDateTimelocal')"
+              >
+                This field should be a date and time.
               </small>
             </div>
           </div>
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('reservaNoblesseApp.reserva.notes')" for="reserva-notes">Notes</label>
+            <label class="form-control-label" v-text="$t('reservaNoblesseApp.reserva.notas')" for="reserva-notas">Notas</label>
             <input
               type="text"
               class="form-control"
-              name="notes"
-              id="reserva-notes"
-              data-cy="notes"
-              :class="{ valid: !$v.reserva.notes.$invalid, invalid: $v.reserva.notes.$invalid }"
-              v-model="$v.reserva.notes.$model"
+              name="notas"
+              id="reserva-notas"
+              data-cy="notas"
+              :class="{ valid: !$v.reserva.notas.$invalid, invalid: $v.reserva.notas.$invalid }"
+              v-model="$v.reserva.notas.$model"
             />
-            <div v-if="$v.reserva.notes.$anyDirty && $v.reserva.notes.$invalid">
+            <div v-if="$v.reserva.notas.$anyDirty && $v.reserva.notas.$invalid">
               <small
                 class="form-text text-danger"
-                v-if="!$v.reserva.notes.maxLength"
+                v-if="!$v.reserva.notas.maxLength"
                 v-text="$t('entity.validation.maxlength', { max: 140 })"
               >
                 This field cannot be longer than 140 characters.
@@ -79,22 +73,6 @@
                 :key="userOption.id"
               >
                 {{ userOption.login }}
-              </option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label v-text="$t('reservaNoblesseApp.reserva.espaco')" for="reserva-espaco">Espaco</label>
-            <select
-              class="form-control"
-              id="reserva-espaco"
-              data-cy="espaco"
-              multiple
-              name="espaco"
-              v-if="reserva.espacos !== undefined"
-              v-model="reserva.espacos"
-            >
-              <option v-bind:value="getSelected(reserva.espacos, espacoOption)" v-for="espacoOption in espacos" :key="espacoOption.id">
-                {{ espacoOption.nome }}
               </option>
             </select>
           </div>
