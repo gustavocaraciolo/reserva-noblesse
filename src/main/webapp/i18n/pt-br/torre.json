@@ -1,0 +1,25 @@
+{
+  "reservaNoblesseApp": {
+    "torre": {
+      "home": {
+        "title": "Torres",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Torre",
+        "createOrEditLabel": "Criar ou editar Torre",
+        "notFound": "Nenhum Torre encontrado"
+      },
+      "created": "Um novo Torre foi criado com o identificador {{ param }}",
+      "updated": "Um Torre foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Torre foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Torre {{ id }}?"
+      },
+      "detail": {
+        "title": "Torre"
+      },
+      "id": "ID",
+      "numero": "Numero",
+      "apartamento": "Apartamento"
+    }
+  }
+}

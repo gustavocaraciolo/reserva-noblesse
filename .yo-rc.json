@@ -47,8 +47,8 @@
     "herokuAppName": "reserva-noblesse",
     "herokuDeployType": "git",
     "herokuJavaVersion": "11",
-    "entities": ["Espaco", "Reserva"],
-    "lastLiquibaseTimestamp": 1625494550000
+    "entities": ["Espaco", "Reserva", "Torre", "Apartamento"],
+    "lastLiquibaseTimestamp": 1625556283000
   },
   "git-provider": "GitHub",
   "git-company": "gustavocaraciolo",

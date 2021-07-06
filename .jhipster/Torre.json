@@ -1,0 +1,27 @@
+{
+  "name": "Torre",
+  "fields": [
+    {
+      "fieldName": "numero",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "apartamento",
+      "otherEntityRelationshipName": "torre",
+      "relationshipName": "apartamento"
+    }
+  ],
+  "entityTableName": "torre",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210706072442"
+}
