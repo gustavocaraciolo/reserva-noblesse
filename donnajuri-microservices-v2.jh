@@ -1,18 +1,26 @@
+entity Torre {
+  nome String maxlength(140)
+}
+
+entity Apartamento {
+  numero Integer
+}
+
 entity Espaco {
   nome String maxlength(140)
 }
 
 entity Reserva {
-  date LocalDate required
-  notes String maxlength(140)
+  dataHora ZonedDateTime required
+  notas String
+  aprovado Boolean
 }
 
 relationship ManyToOne {
   Reserva{user(login)} to User
-}
-
-relationship ManyToMany {
+  Apartamento{user(login)} to User
+  Apartamento{torre} to Torre{apartamento}
   Reserva{espaco} to Espaco{reserva}
 }
 
-paginate Espaco, Reserva with pagination
+paginate Torre, Apartamento, Espaco, Reserva with pagination
