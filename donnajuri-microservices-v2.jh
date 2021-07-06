@@ -16,9 +16,12 @@ entity Reserva {
   aprovado Boolean
 }
 
+relationship OneToOne {
+  Apartamento{user(login)} to User	
+}
+
 relationship ManyToOne {
   Reserva{user(login)} to User
-  Apartamento{user(login)} to User
   Apartamento{torre} to Torre{apartamento}
   Reserva{espaco} to Espaco{reserva}
 }
