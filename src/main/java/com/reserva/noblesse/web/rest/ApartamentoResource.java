@@ -1,7 +1,10 @@
 package com.reserva.noblesse.web.rest;
 
 import com.reserva.noblesse.domain.Apartamento;
+import com.reserva.noblesse.domain.User;
 import com.reserva.noblesse.repository.ApartamentoRepository;
+import com.reserva.noblesse.service.UserService;
+import com.reserva.noblesse.service.dto.AdminUserDTO;
 import com.reserva.noblesse.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,9 +42,11 @@ public class ApartamentoResource {
     private String applicationName;
 
     private final ApartamentoRepository apartamentoRepository;
+    private final UserService userService;
 
-    public ApartamentoResource(ApartamentoRepository apartamentoRepository) {
+    public ApartamentoResource(ApartamentoRepository apartamentoRepository, UserService userService) {
         this.apartamentoRepository = apartamentoRepository;
+        this.userService = userService;
     }
 
     /**
@@ -195,5 +200,13 @@ public class ApartamentoResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/apartamentos-by-user/{login}")
+    public ResponseEntity<List<Apartamento>> getApartamentoByUserId(@PathVariable String login) {
+        log.debug("REST request to get Apartamento by User: {}", login);
+        Optional<User> userWithAuthoritiesByLogin = userService.getUserWithAuthoritiesByLogin(login);
+        List<Apartamento> apartamentos = apartamentoRepository.findApartamentosByUsers(userWithAuthoritiesByLogin);
+        return ResponseEntity.ok().body(apartamentos);
     }
 }

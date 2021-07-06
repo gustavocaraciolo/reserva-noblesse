@@ -1,6 +1,7 @@
 package com.reserva.noblesse.repository;
 
 import com.reserva.noblesse.domain.Apartamento;
+import com.reserva.noblesse.domain.User;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -25,4 +26,6 @@ public interface ApartamentoRepository extends JpaRepository<Apartamento, Long> 
 
     @Query("select apartamento from Apartamento apartamento left join fetch apartamento.users where apartamento.id =:id")
     Optional<Apartamento> findOneWithEagerRelationships(@Param("id") Long id);
+
+    List<Apartamento> findApartamentosByUsers(@Param("user") Optional<User> user);
 }

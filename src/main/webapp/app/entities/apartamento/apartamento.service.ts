@@ -20,6 +20,19 @@ export default class ApartamentoService {
     });
   }
 
+  public findByUserLogin(login: string): Promise<IApartamento[]> {
+    return new Promise<IApartamento[]>((resolve, reject) => {
+      axios
+        .get(`api/apartamentos-by-user/${login}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios

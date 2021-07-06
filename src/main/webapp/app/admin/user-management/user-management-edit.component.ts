@@ -45,12 +45,11 @@ export default class JhiUserManagementEdit extends Vue {
   public userAccount: IUser;
   @Inject('apartamentoService') private apartamentoService: () => ApartamentoService;
   public apartamento: IApartamento = new Apartamento();
+  public apartamentos: IApartamento[] = [];
   @Inject('userService') private userService: () => UserService;
   public users: Array<any> = [];
   @Inject('torreService') private torreService: () => TorreService;
-
   public torres: ITorre[] = [];
-  public apartamentos: IApartamento[] = [];
   public isSaving = false;
   public authorities: any[] = [];
   public languages: any = this.$store.getters.languages;
@@ -84,7 +83,15 @@ export default class JhiUserManagementEdit extends Vue {
       .get(userId)
       .then(res => {
         this.userAccount = res.data;
-        this.retrieveApartamento(this.userAccount.id);
+        this.apartamentoByUser(res.data.login);
+      });
+  }
+
+  public apartamentoByUser(login: string): void {
+    this.apartamentoService()
+      .findByUserLogin(login)
+      .then(res => {
+        this.apartamento = res[res.length - 1];
       });
   }
 
@@ -102,7 +109,7 @@ export default class JhiUserManagementEdit extends Vue {
       this.userManagementService()
         .update(this.userAccount)
         .then(res => {
-          this.saveApartamento(this.userAccount.id);
+          this.saveApartamento(res.data);
           this.returnToList();
           this.$root.$bvToast.toast(this.getMessageFromHeader(res).toString(), {
             toaster: 'b-toaster-top-center',
@@ -116,7 +123,7 @@ export default class JhiUserManagementEdit extends Vue {
       this.userManagementService()
         .create(this.userAccount)
         .then(res => {
-          this.saveApartamento(res.data.id);
+          this.saveApartamento(res.data);
           this.returnToList();
           this.$root.$bvToast.toast(this.getMessageFromHeader(res).toString(), {
             toaster: 'b-toaster-top-center',
@@ -129,10 +136,10 @@ export default class JhiUserManagementEdit extends Vue {
     }
   }
 
-  public saveApartamento(UserId): void {
+  public saveApartamento(user: any): void {
     this.isSaving = true;
-    this.apartamento.user = this.userAccount;
-    this.apartamento.user.id = UserId;
+    this.apartamento.users = [];
+    this.apartamento.users.push(user);
     this.apartamentoService()
       .update(this.apartamento)
       .then(param => {});
@@ -162,11 +169,14 @@ export default class JhiUserManagementEdit extends Vue {
       });
   }
 
-  public retrieveApartamento(UserId): void {
-    this.apartamentoService()
-      .findByUserId(UserId)
-      .then(res => {
-        this.apartamento = res;
-      });
+  public getSelected(selectedVals, option): any {
+    if (selectedVals) {
+      for (let i = 0; i < selectedVals.length; i++) {
+        if (option.id === selectedVals[i].id) {
+          return selectedVals[i];
+        }
+      }
+    }
+    return option;
   }
 }
