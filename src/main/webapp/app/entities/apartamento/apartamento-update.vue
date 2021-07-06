@@ -27,19 +27,6 @@
             />
           </div>
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('reservaNoblesseApp.apartamento.user')" for="apartamento-user">User</label>
-            <select class="form-control" id="apartamento-user" data-cy="user" name="user" v-model="apartamento.user">
-              <option v-bind:value="null"></option>
-              <option
-                v-bind:value="apartamento.user && userOption.id === apartamento.user.id ? apartamento.user : userOption"
-                v-for="userOption in users"
-                :key="userOption.id"
-              >
-                {{ userOption.login }}
-              </option>
-            </select>
-          </div>
-          <div class="form-group">
             <label class="form-control-label" v-text="$t('reservaNoblesseApp.apartamento.torre')" for="apartamento-torre">Torre</label>
             <select class="form-control" id="apartamento-torre" data-cy="torre" name="torre" v-model="apartamento.torre">
               <option v-bind:value="null"></option>
@@ -49,6 +36,22 @@
                 :key="torreOption.id"
               >
                 {{ torreOption.id }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label v-text="$t('reservaNoblesseApp.apartamento.user')" for="apartamento-user">User</label>
+            <select
+              class="form-control"
+              id="apartamento-user"
+              data-cy="user"
+              multiple
+              name="user"
+              v-if="apartamento.users !== undefined"
+              v-model="apartamento.users"
+            >
+              <option v-bind:value="getSelected(apartamento.users, userOption)" v-for="userOption in users" :key="userOption.id">
+                {{ userOption.login }}
               </option>
             </select>
           </div>

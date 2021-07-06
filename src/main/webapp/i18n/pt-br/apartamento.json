@@ -19,8 +19,8 @@
       },
       "id": "ID",
       "numero": "Numero",
-      "user": "User",
-      "torre": "Torre"
+      "torre": "Torre",
+      "user": "User"
     }
   }
 }

@@ -8,9 +8,9 @@ import ApartamentoUpdateComponent from '@/entities/apartamento/apartamento-updat
 import ApartamentoClass from '@/entities/apartamento/apartamento-update.component';
 import ApartamentoService from '@/entities/apartamento/apartamento.service';
 
-import UserService from '@/admin/user-management/user-management.service';
-
 import TorreService from '@/entities/torre/torre.service';
+
+import UserService from '@/admin/user-management/user-management.service';
 
 const localVue = createLocalVue();
 
@@ -42,9 +42,9 @@ describe('Component Tests', () => {
         provide: {
           apartamentoService: () => apartamentoServiceStub,
 
-          userService: () => new UserService(),
-
           torreService: () => new TorreService(),
+
+          userService: () => new UserService(),
         },
       });
       comp = wrapper.vm;

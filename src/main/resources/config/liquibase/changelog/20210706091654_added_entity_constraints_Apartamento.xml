@@ -8,16 +8,22 @@
     -->
     <changeSet id="20210706091654-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="apartamento"
-                                 constraintName="fk_apartamento__user_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="jhi_user"/>
-
         <addForeignKeyConstraint baseColumnNames="torre_id"
                                  baseTableName="apartamento"
                                  constraintName="fk_apartamento__torre_id"
                                  referencedColumnNames="id"
                                  referencedTableName="torre"/>
+
+        <addForeignKeyConstraint baseColumnNames="apartamento_id"
+                                 baseTableName="rel_apartamento__user"
+                                 constraintName="fk_rel_apartamento__user__apartamento_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="apartamento"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="rel_apartamento__user"
+                                 constraintName="fk_rel_apartamento__user__user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
     </changeSet>
 </databaseChangeLog>

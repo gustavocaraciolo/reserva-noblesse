@@ -13,18 +13,21 @@
             <span>{{ apartamento.numero }}</span>
           </dd>
           <dt>
-            <span v-text="$t('reservaNoblesseApp.apartamento.user')">User</span>
-          </dt>
-          <dd>
-            {{ apartamento.user ? apartamento.user.login : '' }}
-          </dd>
-          <dt>
             <span v-text="$t('reservaNoblesseApp.apartamento.torre')">Torre</span>
           </dt>
           <dd>
             <div v-if="apartamento.torre">
               <router-link :to="{ name: 'TorreView', params: { torreId: apartamento.torre.id } }">{{ apartamento.torre.id }}</router-link>
             </div>
+          </dd>
+          <dt>
+            <span v-text="$t('reservaNoblesseApp.apartamento.user')">User</span>
+          </dt>
+          <dd>
+            <span v-for="(user, i) in apartamento.users" :key="user.id"
+              >{{ i > 0 ? ', ' : '' }}
+              {{ user.login }}
+            </span>
           </dd>
         </dl>
         <button type="submit" v-on:click.prevent="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

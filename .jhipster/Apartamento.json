@@ -9,16 +9,17 @@
   "relationships": [
     {
       "relationshipType": "many-to-one",
-      "otherEntityName": "user",
-      "otherEntityRelationshipName": "apartamento",
-      "relationshipName": "user",
-      "otherEntityField": "login"
-    },
-    {
-      "relationshipType": "many-to-one",
       "otherEntityName": "torre",
       "otherEntityRelationshipName": "apartamento",
       "relationshipName": "torre"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "apartamento",
+      "relationshipName": "user",
+      "otherEntityField": "login",
+      "ownerSide": true
     }
   ],
   "entityTableName": "apartamento",

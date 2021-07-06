@@ -1,9 +1,9 @@
 import { Component, Vue, Inject } from 'vue-property-decorator';
 
-import UserService from '@/admin/user-management/user-management.service';
-
 import TorreService from '@/entities/torre/torre.service';
 import { ITorre } from '@/shared/model/torre.model';
+
+import UserService from '@/admin/user-management/user-management.service';
 
 import { IApartamento, Apartamento } from '@/shared/model/apartamento.model';
 import ApartamentoService from './apartamento.service';
@@ -21,13 +21,13 @@ export default class ApartamentoUpdate extends Vue {
   @Inject('apartamentoService') private apartamentoService: () => ApartamentoService;
   public apartamento: IApartamento = new Apartamento();
 
-  @Inject('userService') private userService: () => UserService;
-
-  public users: Array<any> = [];
-
   @Inject('torreService') private torreService: () => TorreService;
 
   public torres: ITorre[] = [];
+
+  @Inject('userService') private userService: () => UserService;
+
+  public users: Array<any> = [];
   public isSaving = false;
   public currentLanguage = '';
 
@@ -48,6 +48,7 @@ export default class ApartamentoUpdate extends Vue {
         this.currentLanguage = this.$store.getters.currentLanguage;
       }
     );
+    this.apartamento.users = [];
   }
 
   public save(): void {
@@ -98,15 +99,26 @@ export default class ApartamentoUpdate extends Vue {
   }
 
   public initRelationships(): void {
-    this.userService()
-      .retrieve()
-      .then(res => {
-        this.users = res.data;
-      });
     this.torreService()
       .retrieve()
       .then(res => {
         this.torres = res.data;
       });
+    this.userService()
+      .retrieve()
+      .then(res => {
+        this.users = res.data;
+      });
+  }
+
+  public getSelected(selectedVals, option): any {
+    if (selectedVals) {
+      for (let i = 0; i < selectedVals.length; i++) {
+        if (option.id === selectedVals[i].id) {
+          return selectedVals[i];
+        }
+      }
+    }
+    return option;
   }
 }

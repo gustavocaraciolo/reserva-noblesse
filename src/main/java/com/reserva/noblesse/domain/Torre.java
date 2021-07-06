@@ -30,7 +30,7 @@ public class Torre implements Serializable {
 
     @OneToMany(mappedBy = "torre")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "user", "torre" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "torre", "users" }, allowSetters = true)
     private Set<Apartamento> apartamentos = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

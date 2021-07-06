@@ -2,6 +2,8 @@ package com.reserva.noblesse.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -25,11 +27,17 @@ public class Apartamento implements Serializable {
     private Integer numero;
 
     @ManyToOne
-    private User user;
-
-    @ManyToOne
     @JsonIgnoreProperties(value = { "apartamentos" }, allowSetters = true)
     private Torre torre;
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(
+        name = "rel_apartamento__user",
+        joinColumns = @JoinColumn(name = "apartamento_id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> users = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -58,19 +66,6 @@ public class Apartamento implements Serializable {
         this.numero = numero;
     }
 
-    public User getUser() {
-        return this.user;
-    }
-
-    public Apartamento user(User user) {
-        this.setUser(user);
-        return this;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Torre getTorre() {
         return this.torre;
     }
@@ -82,6 +77,29 @@ public class Apartamento implements Serializable {
 
     public void setTorre(Torre torre) {
         this.torre = torre;
+    }
+
+    public Set<User> getUsers() {
+        return this.users;
+    }
+
+    public Apartamento users(Set<User> users) {
+        this.setUsers(users);
+        return this;
+    }
+
+    public Apartamento addUser(User user) {
+        this.users.add(user);
+        return this;
+    }
+
+    public Apartamento removeUser(User user) {
+        this.users.remove(user);
+        return this;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

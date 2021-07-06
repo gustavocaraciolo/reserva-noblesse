@@ -3,17 +3,26 @@ package com.reserva.noblesse.repository;
 import com.reserva.noblesse.domain.Apartamento;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
  * Spring Data SQL repository for the Apartamento entity.
  */
-@SuppressWarnings("unused")
 @Repository
 public interface ApartamentoRepository extends JpaRepository<Apartamento, Long> {
-    @Query("select apartamento from Apartamento apartamento where apartamento.user.login = ?#{principal.username}")
-    List<Apartamento> findByUserIsCurrentUser();
+    @Query(
+        value = "select distinct apartamento from Apartamento apartamento left join fetch apartamento.users",
+        countQuery = "select count(distinct apartamento) from Apartamento apartamento"
+    )
+    Page<Apartamento> findAllWithEagerRelationships(Pageable pageable);
 
-    Optional<Apartamento> findApartamentoByUserId(Long id);
+    @Query("select distinct apartamento from Apartamento apartamento left join fetch apartamento.users")
+    List<Apartamento> findAllWithEagerRelationships();
+
+    @Query("select apartamento from Apartamento apartamento left join fetch apartamento.users where apartamento.id =:id")
+    Optional<Apartamento> findOneWithEagerRelationships(@Param("id") Long id);
 }

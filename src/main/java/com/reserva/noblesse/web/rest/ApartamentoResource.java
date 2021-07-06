@@ -149,12 +149,21 @@ public class ApartamentoResource {
      * {@code GET  /apartamentos} : get all the apartamentos.
      *
      * @param pageable the pagination information.
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of apartamentos in body.
      */
     @GetMapping("/apartamentos")
-    public ResponseEntity<List<Apartamento>> getAllApartamentos(Pageable pageable) {
+    public ResponseEntity<List<Apartamento>> getAllApartamentos(
+        Pageable pageable,
+        @RequestParam(required = false, defaultValue = "false") boolean eagerload
+    ) {
         log.debug("REST request to get a page of Apartamentos");
-        Page<Apartamento> page = apartamentoRepository.findAll(pageable);
+        Page<Apartamento> page;
+        if (eagerload) {
+            page = apartamentoRepository.findAllWithEagerRelationships(pageable);
+        } else {
+            page = apartamentoRepository.findAll(pageable);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -168,14 +177,7 @@ public class ApartamentoResource {
     @GetMapping("/apartamentos/{id}")
     public ResponseEntity<Apartamento> getApartamento(@PathVariable Long id) {
         log.debug("REST request to get Apartamento : {}", id);
-        Optional<Apartamento> apartamento = apartamentoRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(apartamento);
-    }
-
-    @GetMapping("/apartamentos-by-user/{id}")
-    public ResponseEntity<Apartamento> getApartamentoByUserId(@PathVariable Long id) {
-        log.debug("REST request to get Apartamento : {}", id);
-        Optional<Apartamento> apartamento = apartamentoRepository.findApartamentoByUserId(id);
+        Optional<Apartamento> apartamento = apartamentoRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(apartamento);
     }
 

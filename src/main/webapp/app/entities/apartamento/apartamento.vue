@@ -36,10 +36,6 @@
               <span v-text="$t('reservaNoblesseApp.apartamento.numero')">Numero</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'numero'"></jhi-sort-indicator>
             </th>
-            <th scope="row" v-on:click="changeOrder('user.login')">
-              <span v-text="$t('reservaNoblesseApp.apartamento.user')">User</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'user.login'"></jhi-sort-indicator>
-            </th>
             <th scope="row" v-on:click="changeOrder('torre.id')">
               <span v-text="$t('reservaNoblesseApp.apartamento.torre')">Torre</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'torre.id'"></jhi-sort-indicator>
@@ -53,9 +49,6 @@
               <router-link :to="{ name: 'ApartamentoView', params: { apartamentoId: apartamento.id } }">{{ apartamento.id }}</router-link>
             </td>
             <td>{{ apartamento.numero }}</td>
-            <td>
-              {{ apartamento.user ? apartamento.user.login : '' }}
-            </td>
             <td>
               <div v-if="apartamento.torre">
                 <router-link :to="{ name: 'TorreView', params: { torreId: apartamento.torre.id } }">{{ apartamento.torre.id }}</router-link>
