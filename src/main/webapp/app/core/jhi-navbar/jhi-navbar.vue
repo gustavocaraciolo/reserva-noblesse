@@ -45,6 +45,22 @@
             <font-awesome-icon icon="asterisk" />
             <span v-text="$t('global.menu.entities.apartamento')">Apartamento</span>
           </b-dropdown-item>
+          <b-dropdown-item to="/espaco">
+            <font-awesome-icon icon="asterisk" />
+            <span v-text="$t('global.menu.entities.espaco')">Espaco</span>
+          </b-dropdown-item>
+          <b-dropdown-item to="/reserva">
+            <font-awesome-icon icon="asterisk" />
+            <span v-text="$t('global.menu.entities.reserva')">Reserva</span>
+          </b-dropdown-item>
+          <b-dropdown-item to="/torre">
+            <font-awesome-icon icon="asterisk" />
+            <span v-text="$t('global.menu.entities.torre')">Torre</span>
+          </b-dropdown-item>
+          <b-dropdown-item to="/apartamento">
+            <font-awesome-icon icon="asterisk" />
+            <span v-text="$t('global.menu.entities.apartamento')">Apartamento</span>
+          </b-dropdown-item>
           <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
         </b-nav-item-dropdown>
         <b-nav-item-dropdown

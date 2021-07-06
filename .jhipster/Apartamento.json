@@ -8,11 +8,12 @@
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "relationshipType": "one-to-one",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "apartamento",
       "relationshipName": "user",
-      "otherEntityField": "login"
+      "otherEntityField": "login",
+      "ownerSide": true
     },
     {
       "relationshipType": "many-to-one",

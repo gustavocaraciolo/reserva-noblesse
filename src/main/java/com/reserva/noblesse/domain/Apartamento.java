@@ -24,7 +24,8 @@ public class Apartamento implements Serializable {
     @Column(name = "numero")
     private Integer numero;
 
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(unique = true)
     private User user;
 
     @ManyToOne

@@ -18,7 +18,7 @@
                 <constraints nullable="true" />
             </column>
             <column name="user_id" type="bigint">
-                <constraints nullable="true" />
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_apartamento__user_id" />
             </column>
             <column name="torre_id" type="bigint">
                 <constraints nullable="true" />
