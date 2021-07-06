@@ -14,15 +14,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
-        <addForeignKeyConstraint baseColumnNames="reserva_id"
-                                 baseTableName="rel_reserva__espaco"
-                                 constraintName="fk_rel_reserva__espaco__reserva_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="reserva"/>
-
         <addForeignKeyConstraint baseColumnNames="espaco_id"
-                                 baseTableName="rel_reserva__espaco"
-                                 constraintName="fk_rel_reserva__espaco__espaco_id"
+                                 baseTableName="reserva"
+                                 constraintName="fk_reserva__espaco_id"
                                  referencedColumnNames="id"
                                  referencedTableName="espaco"/>
     </changeSet>

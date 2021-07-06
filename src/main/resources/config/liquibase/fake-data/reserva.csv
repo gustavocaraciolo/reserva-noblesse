@@ -1,11 +1,11 @@
-id;date;notes
-1;2021-07-04;Bedfordshire Program Sabonete
-2;2021-07-04;Marginal rosa AGP
-3;2021-07-04;à
-4;2021-07-05;Macio
-5;2021-07-05;laranja dot-com
-6;2021-07-05;Creative
-7;2021-07-05;e-markets
-8;2021-07-05;maximized Extended system
-9;2021-07-04;bus dynamic
-10;2021-07-04;Account
+id;data_hora;notas;aprovado
+1;2021-07-04T18:44:58;Bedfordshire Program Sabonete;true
+2;2021-07-04T19:41:15;indexing haptic;false
+3;2021-07-05T13:03:01;Ergonômico Mesa application;true
+4;2021-07-04T16:08:12;Bedfordshire;true
+5;2021-07-05T06:02:15;asymmetric Creative;false
+6;2021-07-05T10:03:22;Rondônia SQL;false
+7;2021-07-05T08:37:32;à;false
+8;2021-07-04T19:28:35;bus dynamic;true
+9;2021-07-05T12:34:48;integrated Macio;true
+10;2021-07-05T02:29:51;Avenida;false

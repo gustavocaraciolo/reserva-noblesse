@@ -3,7 +3,7 @@ import axios from 'axios';
 import sinon from 'sinon';
 import dayjs from 'dayjs';
 
-import { DATE_FORMAT } from '@/shared/date/filters';
+import { DATE_TIME_FORMAT } from '@/shared/date/filters';
 import ReservaService from '@/entities/reserva/reserva.service';
 import { Reserva } from '@/shared/model/reserva.model';
 
@@ -33,14 +33,14 @@ describe('Service Tests', () => {
     beforeEach(() => {
       service = new ReservaService();
       currentDate = new Date();
-      elemDefault = new Reserva(123, currentDate, 'AAAAAAA');
+      elemDefault = new Reserva(123, currentDate, 'AAAAAAA', false);
     });
 
     describe('Service methods', () => {
       it('should find an element', async () => {
         const returnedFromService = Object.assign(
           {
-            date: dayjs(currentDate).format(DATE_FORMAT),
+            dataHora: dayjs(currentDate).format(DATE_TIME_FORMAT),
           },
           elemDefault
         );
@@ -65,13 +65,13 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 123,
-            date: dayjs(currentDate).format(DATE_FORMAT),
+            dataHora: dayjs(currentDate).format(DATE_TIME_FORMAT),
           },
           elemDefault
         );
         const expected = Object.assign(
           {
-            date: currentDate,
+            dataHora: currentDate,
           },
           returnedFromService
         );
@@ -96,15 +96,16 @@ describe('Service Tests', () => {
       it('should update a Reserva', async () => {
         const returnedFromService = Object.assign(
           {
-            date: dayjs(currentDate).format(DATE_FORMAT),
-            notes: 'BBBBBB',
+            dataHora: dayjs(currentDate).format(DATE_TIME_FORMAT),
+            notas: 'BBBBBB',
+            aprovado: true,
           },
           elemDefault
         );
 
         const expected = Object.assign(
           {
-            date: currentDate,
+            dataHora: currentDate,
           },
           returnedFromService
         );
@@ -129,8 +130,8 @@ describe('Service Tests', () => {
       it('should partial update a Reserva', async () => {
         const patchObject = Object.assign(
           {
-            date: dayjs(currentDate).format(DATE_FORMAT),
-            notes: 'BBBBBB',
+            dataHora: dayjs(currentDate).format(DATE_TIME_FORMAT),
+            notas: 'BBBBBB',
           },
           new Reserva()
         );
@@ -138,7 +139,7 @@ describe('Service Tests', () => {
 
         const expected = Object.assign(
           {
-            date: currentDate,
+            dataHora: currentDate,
           },
           returnedFromService
         );
@@ -163,14 +164,15 @@ describe('Service Tests', () => {
       it('should return a list of Reserva', async () => {
         const returnedFromService = Object.assign(
           {
-            date: dayjs(currentDate).format(DATE_FORMAT),
-            notes: 'BBBBBB',
+            dataHora: dayjs(currentDate).format(DATE_TIME_FORMAT),
+            notas: 'BBBBBB',
+            aprovado: true,
           },
           elemDefault
         );
         const expected = Object.assign(
           {
-            date: currentDate,
+            dataHora: currentDate,
           },
           returnedFromService
         );

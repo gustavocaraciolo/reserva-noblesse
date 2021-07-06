@@ -18,8 +18,9 @@
         "title": "Reserva"
       },
       "id": "ID",
-      "date": "Date",
-      "notes": "Notes",
+      "dataHora": "Data Hora",
+      "notas": "Notas",
+      "aprovado": "Aprovado",
       "user": "User",
       "espaco": "Espaco"
     }
