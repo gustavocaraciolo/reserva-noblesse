@@ -2,12 +2,12 @@
   "name": "Reserva",
   "fields": [
     {
-      "fieldName": "date",
-      "fieldType": "LocalDate",
+      "fieldName": "dataHora",
+      "fieldType": "ZonedDateTime",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "notes",
+      "fieldName": "notas",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
       "fieldValidateRulesMaxlength": "140"
@@ -22,11 +22,10 @@
       "otherEntityField": "login"
     },
     {
-      "relationshipType": "many-to-many",
+      "relationshipType": "many-to-one",
       "otherEntityName": "espaco",
       "otherEntityRelationshipName": "reserva",
-      "relationshipName": "espaco",
-      "ownerSide": true
+      "relationshipName": "espaco"
     }
   ],
   "entityTableName": "reserva",

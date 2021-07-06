@@ -1,6 +1,8 @@
 import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { required, maxLength } from 'vuelidate/lib/validators';
+import dayjs from 'dayjs';
+import { DATE_TIME_LONG_FORMAT } from '@/shared/date/filters';
 
 import UserService from '@/admin/user-management/user-management.service';
 
@@ -12,10 +14,10 @@ import ReservaService from './reserva.service';
 
 const validations: any = {
   reserva: {
-    date: {
+    dataHora: {
       required,
     },
-    notes: {
+    notas: {
       maxLength: maxLength(140),
     },
   },
@@ -55,7 +57,6 @@ export default class ReservaUpdate extends Vue {
         this.currentLanguage = this.$store.getters.currentLanguage;
       }
     );
-    this.reserva.espacos = [];
   }
 
   public save(): void {
@@ -93,10 +94,34 @@ export default class ReservaUpdate extends Vue {
     }
   }
 
+  public convertDateTimeFromServer(date: Date): string {
+    if (date && dayjs(date).isValid()) {
+      return dayjs(date).format(DATE_TIME_LONG_FORMAT);
+    }
+    return null;
+  }
+
+  public updateInstantField(field, event) {
+    if (event.target.value) {
+      this.reserva[field] = dayjs(event.target.value, DATE_TIME_LONG_FORMAT);
+    } else {
+      this.reserva[field] = null;
+    }
+  }
+
+  public updateZonedDateTimeField(field, event) {
+    if (event.target.value) {
+      this.reserva[field] = dayjs(event.target.value, DATE_TIME_LONG_FORMAT);
+    } else {
+      this.reserva[field] = null;
+    }
+  }
+
   public retrieveReserva(reservaId): void {
     this.reservaService()
       .find(reservaId)
       .then(res => {
+        res.dataHora = new Date(res.dataHora);
         this.reserva = res;
       });
   }
@@ -116,16 +141,5 @@ export default class ReservaUpdate extends Vue {
       .then(res => {
         this.espacos = res.data;
       });
-  }
-
-  public getSelected(selectedVals, option): any {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
-        }
-      }
-    }
-    return option;
   }
 }

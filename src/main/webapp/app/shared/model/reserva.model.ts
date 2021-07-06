@@ -3,18 +3,18 @@ import { IEspaco } from '@/shared/model/espaco.model';
 
 export interface IReserva {
   id?: number;
-  date?: Date;
-  notes?: string | null;
+  dataHora?: Date;
+  notas?: string | null;
   user?: IUser | null;
-  espacos?: IEspaco[] | null;
+  espaco?: IEspaco | null;
 }
 
 export class Reserva implements IReserva {
   constructor(
     public id?: number,
-    public date?: Date,
-    public notes?: string | null,
+    public dataHora?: Date,
+    public notas?: string | null,
     public user?: IUser | null,
-    public espacos?: IEspaco[] | null
+    public espaco?: IEspaco | null
   ) {}
 }

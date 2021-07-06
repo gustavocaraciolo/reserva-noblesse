@@ -2,9 +2,7 @@ package com.reserva.noblesse.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.ZonedDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -26,25 +24,19 @@ public class Reserva implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "date", nullable = false)
-    private LocalDate date;
+    @Column(name = "data_hora", nullable = false)
+    private ZonedDateTime dataHora;
 
     @Size(max = 140)
-    @Column(name = "notes", length = 140)
-    private String notes;
+    @Column(name = "notas", length = 140)
+    private String notas;
 
     @ManyToOne
     private User user;
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JoinTable(
-        name = "rel_reserva__espaco",
-        joinColumns = @JoinColumn(name = "reserva_id"),
-        inverseJoinColumns = @JoinColumn(name = "espaco_id")
-    )
+    @ManyToOne
     @JsonIgnoreProperties(value = { "reservas" }, allowSetters = true)
-    private Set<Espaco> espacos = new HashSet<>();
+    private Espaco espaco;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -60,30 +52,30 @@ public class Reserva implements Serializable {
         return this;
     }
 
-    public LocalDate getDate() {
-        return this.date;
+    public ZonedDateTime getDataHora() {
+        return this.dataHora;
     }
 
-    public Reserva date(LocalDate date) {
-        this.date = date;
+    public Reserva dataHora(ZonedDateTime dataHora) {
+        this.dataHora = dataHora;
         return this;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDataHora(ZonedDateTime dataHora) {
+        this.dataHora = dataHora;
     }
 
-    public String getNotes() {
-        return this.notes;
+    public String getNotas() {
+        return this.notas;
     }
 
-    public Reserva notes(String notes) {
-        this.notes = notes;
+    public Reserva notas(String notas) {
+        this.notas = notas;
         return this;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setNotas(String notas) {
+        this.notas = notas;
     }
 
     public User getUser() {
@@ -99,29 +91,17 @@ public class Reserva implements Serializable {
         this.user = user;
     }
 
-    public Set<Espaco> getEspacos() {
-        return this.espacos;
+    public Espaco getEspaco() {
+        return this.espaco;
     }
 
-    public Reserva espacos(Set<Espaco> espacos) {
-        this.setEspacos(espacos);
+    public Reserva espaco(Espaco espaco) {
+        this.setEspaco(espaco);
         return this;
     }
 
-    public Reserva addEspaco(Espaco espaco) {
-        this.espacos.add(espaco);
-        espaco.getReservas().add(this);
-        return this;
-    }
-
-    public Reserva removeEspaco(Espaco espaco) {
-        this.espacos.remove(espaco);
-        espaco.getReservas().remove(this);
-        return this;
-    }
-
-    public void setEspacos(Set<Espaco> espacos) {
-        this.espacos = espacos;
+    public void setEspaco(Espaco espaco) {
+        this.espaco = espaco;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -148,8 +128,8 @@ public class Reserva implements Serializable {
     public String toString() {
         return "Reserva{" +
             "id=" + getId() +
-            ", date='" + getDate() + "'" +
-            ", notes='" + getNotes() + "'" +
+            ", dataHora='" + getDataHora() + "'" +
+            ", notas='" + getNotas() + "'" +
             "}";
     }
 }

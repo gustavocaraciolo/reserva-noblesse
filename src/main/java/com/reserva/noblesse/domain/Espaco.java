@@ -28,9 +28,9 @@ public class Espaco implements Serializable {
     @Column(name = "nome", length = 140)
     private String nome;
 
-    @ManyToMany(mappedBy = "espacos")
+    @OneToMany(mappedBy = "espaco")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "user", "espacos" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "espaco" }, allowSetters = true)
     private Set<Reserva> reservas = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -71,22 +71,22 @@ public class Espaco implements Serializable {
 
     public Espaco addReserva(Reserva reserva) {
         this.reservas.add(reserva);
-        reserva.getEspacos().add(this);
+        reserva.setEspaco(this);
         return this;
     }
 
     public Espaco removeReserva(Reserva reserva) {
         this.reservas.remove(reserva);
-        reserva.getEspacos().remove(this);
+        reserva.setEspaco(null);
         return this;
     }
 
     public void setReservas(Set<Reserva> reservas) {
         if (this.reservas != null) {
-            this.reservas.forEach(i -> i.removeEspaco(this));
+            this.reservas.forEach(i -> i.setEspaco(null));
         }
         if (reservas != null) {
-            reservas.forEach(i -> i.addEspaco(this));
+            reservas.forEach(i -> i.setEspaco(this));
         }
         this.reservas = reservas;
     }

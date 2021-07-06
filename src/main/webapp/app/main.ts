@@ -29,6 +29,8 @@ import UserOAuth2Service from '@/entities/user/user.oauth2.service';
 
 import EspacoService from '@/entities/espaco/espaco.service';
 import ReservaService from '@/entities/reserva/reserva.service';
+import TorreService from '@/entities/torre/torre.service';
+import ApartamentoService from '@/entities/apartamento/apartamento.service';
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 /* tslint:enable */
@@ -89,6 +91,8 @@ new Vue({
     translationService: () => translationService,
     espacoService: () => new EspacoService(),
     reservaService: () => new ReservaService(),
+    torreService: () => new TorreService(),
+    apartamentoService: () => new ApartamentoService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
   },
