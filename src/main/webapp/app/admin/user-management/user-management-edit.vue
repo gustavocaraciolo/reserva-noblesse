@@ -119,6 +119,34 @@
               </small>
             </div>
           </div>
+          <div class="form-group">
+            <label class="form-control-label" v-text="$t('reservaNoblesseApp.apartamento.detail.title')" for="apartamento"
+              >Apartamento</label
+            >
+            <select class="form-control" id="apartamento" data-cy="apartamento" name="apartamento" v-model="apartamento">
+              <option v-bind:value="null"></option>
+              <option
+                v-bind:value="apartamento && aptOption.id === apartamento.id ? apartamento : aptOption"
+                v-for="aptOption in apartamentos"
+                :key="aptOption.id"
+              >
+                {{ aptOption.numero }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" v-text="$t('reservaNoblesseApp.apartamento.torre')" for="apartamento-torre">Torre</label>
+            <select class="form-control" id="apartamento-torre" data-cy="torre" name="torre" v-model="apartamento.torre">
+              <option v-bind:value="null"></option>
+              <option
+                v-bind:value="apartamento.torre && torreOption.id === apartamento.torre.id ? apartamento.torre : torreOption"
+                v-for="torreOption in torres"
+                :key="torreOption.id"
+              >
+                {{ torreOption.nome }}
+              </option>
+            </select>
+          </div>
           <div class="form-check">
             <label class="form-check-label" for="activated">
               <input

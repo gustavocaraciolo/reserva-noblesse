@@ -172,6 +172,13 @@ public class ApartamentoResource {
         return ResponseUtil.wrapOrNotFound(apartamento);
     }
 
+    @GetMapping("/apartamentos-by-user/{id}")
+    public ResponseEntity<Apartamento> getApartamentoByUserId(@PathVariable Long id) {
+        log.debug("REST request to get Apartamento : {}", id);
+        Optional<Apartamento> apartamento = apartamentoRepository.findApartamentoByUserId(id);
+        return ResponseUtil.wrapOrNotFound(apartamento);
+    }
+
     /**
      * {@code DELETE  /apartamentos/:id} : delete the "id" apartamento.
      *

@@ -2,6 +2,7 @@ package com.reserva.noblesse.repository;
 
 import com.reserva.noblesse.domain.Apartamento;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +14,6 @@ import org.springframework.stereotype.Repository;
 public interface ApartamentoRepository extends JpaRepository<Apartamento, Long> {
     @Query("select apartamento from Apartamento apartamento where apartamento.user.login = ?#{principal.username}")
     List<Apartamento> findByUserIsCurrentUser();
+
+    Optional<Apartamento> findApartamentoByUserId(Long id);
 }
