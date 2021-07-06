@@ -18,9 +18,11 @@ entity Reserva {
 
 relationship ManyToOne {
   Reserva{user(login)} to User
-  Apartamento{user(login)} to User
   Apartamento{torre} to Torre{apartamento}
   Reserva{espaco} to Espaco{reserva}
+}
+relationship ManyToMany {
+  Apartamento{user(login)} to User	
 }
 
 paginate Torre, Apartamento, Espaco, Reserva with pagination
